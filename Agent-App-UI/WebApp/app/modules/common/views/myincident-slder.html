@@ -1,0 +1,38 @@
+<!-- My Incident Panel -->
+<div class="myIncidentPan col-md-4 col-md-offset-2">
+    <h2>
+        My Incidents
+        <img src="static/assets/images/notification-left-arrow.png" class="closeMyIncident">
+    </h2>
+
+    <ul>
+        <li ng-if="agent_assigned_tickets" ng-repeat="ticket in agent_assigned_tickets" ng-click="showTicketDetails(ticket)" class="mouser-pointer">
+            <div class="myIncidentHeader">
+                <div class="incidentHeadPic">
+                    <img ng-if="ticket.attachments.length == 0"
+                         src="/static/assets/images/pic-02.jpg">
+                    <img ng-if="ticket.attachments[0].attachment && ticket.attachments[0].asset_type==1"
+                         ng-src="{{ticket.attachments[0].attachment}}">
+                    <img ng-if="ticket.attachments[0].attachment && ticket.attachments[0].asset_type==2"
+                         src="/static/assets/images/pic-02.jpg">
+                    <img ng-if="ticket.attachments[0].attachment && ticket.attachments[0].asset_type==3"
+                         src="/static/assets/images/pic-02.jpg">
+                </div>
+                <h3 ng-if="ticket.description">{{ticket.description | limitTo: 15 }}</h3>
+                <h3 ng-if="ticket.incident_number">{{ticket.incident_number}}</h3>
+                <p class="incidentTime">{{ticket.reported_date | date:"dd/MM/yyyy 'at' h:mma"}}</p>
+                <div class="clearfix"></div>
+            </div>
+            <p>{{ticket.description}}</p>
+        </li>
+    </ul>
+
+    <ul>
+        <li ng-if="!agent_assigned_tickets" class="mouser-pointer">
+            <div class="myIncidentHeader">
+                <h3>No Incidents Available</h3>
+                <div class="clearfix"></div>
+            </div>
+        </li>
+    </ul>
+</div>

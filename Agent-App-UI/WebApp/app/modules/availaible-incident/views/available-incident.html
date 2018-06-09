@@ -1,0 +1,87 @@
+<div class="col-md-10 incident-right">
+    <h2>WELCOME <span>{{personal_info.email}}</span></h2>
+    <div class="filterPan">
+        <h3> <center> User Profile </center> </h3>
+    </div>
+    <!-- Mid Panel Start -->
+    <div class="col-md-12 full-block-panel">
+        <div class="round-pan">
+            <div class="scrollHeight-incident">
+                <div class="round-pan" style="padding:4%">
+                    <header style="font-size:25px; margin-bottom:10px;">Edit Profile</header>
+                    <div class="scrollHeight-incident ng-scope" id="editForm" style="min-height: 250px;">
+                        <div class="edit_form">
+                            <div class="col-md-6 edit_form">
+                                <label class="col-md-4"><strong>Name : </strong></label>
+                                <span class="col-md-8">
+                                    <input type="text" name="first_name" ng-model="user.user.first_name" class="ng-pristine ng-untouched ng-valid">
+                                </span>
+                            </div>
+                            <div class="col-md-6 edit_form">
+                                <label class="col-md-4"><strong>Email : </strong></label>
+                                <span class="col-md-8">
+                                    <input type="text" ng-disabled="true" name="email" ng-model="user.user.email" class="ng-pristine ng-untouched ng-valid">
+                                </span>
+                            </div>
+                        </div>
+                        <div class="edit_form">
+                            <div class="col-md-6 edit_form">
+                                <label class="col-md-4"><strong>Number : </strong></label>
+                                <span class="col-md-8">
+                                    <input type="text" name="phone_number" ng-model="user.phone_number" class="ng-pristine ng-untouched ng-valid">
+                                </span>
+                            </div>
+                            <div class="col-md-6 edit_form">
+                                <label class="col-md-4"><strong>State : </strong></label>
+                                <span class="col-md-8">
+                                    <input type="text" name="state" ng-model="user.state" class="ng-pristine ng-untouched ng-valid">
+                                </span>
+                            </div>
+                        </div>
+                        <div style="">
+                            <div class="col-md-6 edit_form">
+                                <label class="col-md-4"><strong>City : </strong></label>
+                                <span class="col-md-8">
+                                    <input type="text" name="city" ng-model="user.city" class="ng-pristine ng-untouched ng-valid">
+                                </span>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="col-md-4"><strong>Address : </strong></label>
+                                <span class="col-md-8">
+                                    <input type="text" name="address" ng-model="user.address" class="ng-pristine ng-untouched ng-valid">
+                                </span>
+                            </div>
+                        </div>
+                        <div style="">
+                            <div class="col-md-6 edit_form">
+                                <label class="col-md-4"><strong>Old Password : </strong></label>
+                                <span class="col-md-8">
+                                    <input type="password" name="old_password" ng-model="user.old_password" class="ng-pristine ng-untouched ng-valid">
+                                </span>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="col-md-4"><strong>New Password : </strong></label>
+                                <span class="col-md-8">
+                                    <input type="password" name="new_password" ng-model="user.new_password" class="ng-pristine ng-untouched ng-valid">
+                                </span>
+                            </div>
+                        </div>
+                        <div class="edit_form">
+                            <div class="col-md-6">
+                                <label class="col-md-4"><strong>Zip Code : </strong></label>
+                                <span class="col-md-8">
+                                    <input type="text" name="pin_code" ng-model="user.pin_code" class="ng-pristine ng-untouched ng-valid">
+                                </span>
+                            </div>
+                            <div class="col-md-4 edit_form" style="float:right; margin-top:25px;">
+                                <div>
+                                    <button type="button" ng-click="updateUser()" class="btn btn-primary">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,41 @@
+<div ng-include="'/static/modules/common/views/myincident-slder.html'"></div>
+<div>
+   <div class="col-md-2 home-left" ng-if="!hideLeftNav">
+      <ul class="nav nav-tabs left-menu" role="tablist">
+         <li role="presentation"><a
+             aria-controls="home" role="tab"
+            ><i class="menuIcon-list"></i></a></li>
+         <li role="presentation" class="active"><a
+            aria-controls="profile"
+            role="tab"
+            ><i
+            class="menuIcon-profile"></i></a></li>
+      </ul>
+      <!-- Tab panes -->
+      <div class="tab-content" ng-if="!hideLeftNav">
+         <div role="tabpanel" class="tab-pane" id="home">
+         </div>
+         <div role="tabpanel" class="tab-pane active" id="profile">
+            <div class="profilePicPan"><img src="/static/assets/images/user.png" class="bigImg">
+            </div>
+            <div class="profPicPan">
+               <div class="profPicPanSmall"><img src="/static/assets/images/user.png" class="profPic profilePicCustom">
+               </div>
+               <h2>{{user_personal_info.email}}</h2>
+               <p><span class="online"></span></p>
+            </div>
+            <ul class="link-menu mTop49">
+               <li ng-click="selectTab('home')" ng-class="{home:'selected'}[currentTab]"><a ui-sref=".agentHome"><i
+                  class="leftMenu-home"></i> Dashboard</a></li>
+               <li ng-click="selectTab('availIncident')" ng-class="{availIncident:'selected'}[currentTab]"><a
+                  ui-sref=".availIncident"><i class="leftMenu-availincident"></i>Profile</a></li>
+            </ul>
+         </div>
+      </div>
+      <div class="datePan">
+         <p><img src="/static/assets/images/calender-icon.png"/>{{date | date:'dd MMMM yyyy'}}</p>
+      </div>
+   </div>
+   <div ui-view></div>
+</div>
+

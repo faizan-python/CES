@@ -1,0 +1,55 @@
+
+
+<div class="panel-heading" role="tab" id="headingOne">
+    <h4 class="panel-title" ng-click="selectAccordianTab('response')">
+        <a role="button" data-toggle="collapse" data-parent="#wipAccordion" data-target="#collapseOne"
+            aria-expanded="true" aria-controls="collapseOne" class="responseLink">
+        Responses
+        </a>
+    </h4>
+</div>
+<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+    <div class="panel-body response">
+        <!-- Share and radio button section -->
+        <div class="responseRadioPan">
+            <div id="commentTab" class="checkbox diBlock">
+                <label>
+                    <div class="imageCheckbox">
+                        <input ng-click="comment(1)" type="radio" name="name1" id="comment">
+                <label for="comment"></label>
+                <span>Public Message </span>
+                </div>
+                </label>
+            </div>
+            <div id="msgTab" class="checkbox diBlock active">
+                <label>
+                    <div class="imageCheckbox">
+                        <input type="radio" ng-click="privatemessage(1)" name="name1" id="private" checked="true">
+                <label for="private"></label>
+                <span>Private Message </span>
+                </div>
+                </label>
+            </div>
+            <i ng-click="respondTabChange()" class="filter-refresh pointer" style="margin-left:20px"></i>
+            <ul class="wipSocial">
+                <!--<li>-->
+                <!--<a href="#"><img src="/static/assets/images/fb-icon.png"></a>-->
+                <!--</li>-->
+                <!--<li>-->
+                <!--<a href="#"><img src="/static/assets/images/twitter-icon.png"></a>-->
+                <!--</li>-->
+            </ul>
+            <!--<p class="sharetext">Share On </p>-->
+            <div class="clearfix"></div>
+        </div>
+        <!-- /Share and radio button section -->
+        <!-- Comment Chat Section -->
+        <div ng-if="!private_message_tab_seleceted"
+                ng-include="'/static/modules/my-incident/views/public-message.html'"></div>
+        <!-- Comment Chat Section End-->
+        <!-- Private Chat Section -->
+        <div ng-if="private_message_tab_seleceted" 
+            ng-include="'/static/modules/my-incident/views/private-message.html'"></div>
+        <!-- /Chat Submit -->
+    </div>
+</div>

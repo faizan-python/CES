@@ -1,0 +1,132 @@
+<!-- Middle Section -->
+<div class="col-md-7 incident-right">
+    <h2>WELCOME <span>{{personal_info.full_name}}</span></h2>
+    <div class="filterPan">
+        <h3>Search Incidents</h3>
+        <div ng-click="refreshSearch()" class="pull-right"><i class="filter-refresh pointer"></i></div>
+        <div class="clearfix"></div>
+    </div>
+    <!-- Mid Panel Start -->
+    <div class="col-md-12 full-block-panel">
+        <div class="round-pan">
+            <div id="searchscroll" class="scrollHeight-incident">
+                <div infinite-scroll="updateSearchIncidentTicket()" infinite-scroll-disabled="busy" infinite-scroll-container='"#searchscroll"' infinite-scroll-distance="0">
+                    <div ng-if="search_incident_tickets.length != 0 ">
+                        <div class="col-md-6 mouser-pointer" ng-repeat="ticket in search_incident_tickets track by $index" ng-if="$index%2==1">
+                            <ul ng-click="changeCurrentSelectedTicket(ticket.id)">
+                                <li ng-class='{selectedticket : ticket.id == currentSelectedTicketObj.id}'>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="imgPic">
+                                                <img ng-if="ticket.attachments[0].attachment == null" src="/static/assets/images/pic-02.jpg">
+                                                <img ng-if="ticket.attachments[0].attachment && ticket.attachments[0].asset_type==1" ng-src="{{ticket.attachments[0].attachment}}">
+                                                <img ng-if="ticket.attachments[0].attachment && ticket.attachments[0].asset_type==2" alt="Image not available.">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-8 noPad">
+                                            <h4>{{ticket.product[0].name }} {{ticket.unique_issue}}</h4>
+                                            <p>{{ ticket.description | limitTo: 50 }}{{ticket.description.length > 50 ? '...' : ''}}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div ng-if="search_incident_tickets.length != 0 ">
+                        <div class="col-md-6 mouser-pointer" ng-repeat="ticket in search_incident_tickets track by $index" ng-if="$index%2==0">
+                            <ul ng-click="changeCurrentSelectedTicket(ticket.id)">
+                                <li ng-class='{selectedticket : ticket.id == currentSelectedTicketObj.id}'>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="imgPic">
+                                                <img ng-if="ticket.attachments[0].attachment == null" src="/static/assets/images/pic-02.jpg">
+                                                <img ng-if="ticket.attachments[0].attachment && ticket.attachments[0].asset_type==1" ng-src="{{ticket.attachments[0].attachment}}">
+                                                <img ng-if="ticket.attachments[0].attachment && ticket.attachments[0].asset_type==2" alt="Image not available.">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-8 noPad">
+                                            <h4>{{ticket.product[0].name }} {{ticket.unique_issue}}</h4>
+                                            <p>{{ ticket.description | limitTo: 50 }}{{ticket.description.length > 50 ? '...' : ''}}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div ng-if="search_incident_tickets.length == 0 ">
+                        <center>
+                            No incidents matched your search.
+                        </center>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <div class="text-center" ng-if="loading"> <img src="/static/assets/images/loading-animation.gif" /></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Mid Panel Start -->
+</div>
+<!-- /Middle Section -->
+<!-- Right Section -->
+<div class="col-md-3 home-right">
+    <h3>Incident Detail </h3>
+    <div class="incidentDetails">
+        <div ng-if="currentSelectedTicketObj">
+            <div class="incidentPanHead lOrange">
+                <div class="incidentHeadPic"><img src="/static/assets/images/incident-pic-3.jpg"></div>
+                <h3 ng-bind="currentSelectedTicketObj.reported_by.full_name"></h3>
+                <span class="incidentPanHeadRight"><img src="/static/assets/images/clock-icon-small.png">{{currentSelectedTicketObj.updated_date | date:"dd MMM yyyy 'at' h:mma"}}</span>
+            </div>
+            <h4>{{currentSelectedTicketObj.product[0].name }} {{currentSelectedTicketObj.unique_issue}} </h4>
+            <p ng-bind="currentSelectedTicketObj.description"></p>
+            <div class="progress">
+                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{currentSelectedTicketObj.heat_index * 10 }}" aria-valuemin="0" aria-valuemax="100" style="width: {{currentSelectedTicketObj.heat_index * 10 }}%">
+                </div>
+            </div>
+            <div class="aCenter">
+                <button id="accept-{{currentSelectedTicketObj.id}}" href="" ng-if="!currentSelectedTicketObj.assign_agent" ng-click="$parent.acceptticket(currentSelectedTicketObj.id)" class="butt">Accept
+                </button>
+                <button id="view-{{currentSelectedTicketObj.id}}" href="#" ng-if="currentSelectedTicketObj.assign_agent" ng-click="$parent.showTicketDetails(currentSelectedTicketObj)" class="butt">View
+                </button>
+            </div>
+        </div>
+        <div ng-if="currentSelectedTicketObj.length == 0">
+            <center>
+                No tickets available.
+            </center>
+        </div>
+    </div>
+    <div class="incidentDetailsIcon" ng-if="search_incident_tickets.length">
+        <div class="incidentShareValue"><span ng-bind="currentSelectedTicketObj.view_count"></span><i class="incidentIcon-view"></i></div>
+        <div class="incidentShareValue"><span ng-bind="currentSelectedTicketObj.upvote_count"></span><i class="incidentIcon-like"></i></div>
+        <div class="incidentShareValue"><span ng-bind="currentSelectedTicketObj.comment_count"></span><i class="incidentIcon-msg"></i></div>
+        <div class="incidentShareValue"><span ng-bind="currentSelectedTicketObj.share_count"></span><i class="incidentIcon-share"></i></div>
+    </div>
+    <h3>Attachments </h3>
+    <div class="incidentDetails">
+        <div ng-if="currentAttachments">
+            <!-- Carousel -->
+            <div id="carousel-incident" class="carousel slide incidentCarousel" data-ride="carousel">
+                <!-- Indicators -->
+                <ol class="carousel-indicators">
+                    <li ng-repeat="attachments in currentAttachments track by $index" data-target="#carousel-incident" ng-class="$index < 1 ? 'active' : ''" data-slide-to="{{$index}}"></li>
+                </ol>
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner" role="listbox">
+                    <div ng-repeat="attachments in currentAttachments track by $index" class="item" ng-class="$index < 1 ? 'active' : ''">
+                        <img ng-src="{{attachments.attachment}}" alt="">
+                    </div>
+                </div>
+                <!-- /Carousel -->
+            </div>
+        </div>
+        <div ng-if="currentAttachments.length == 0">
+            <center>
+                No Attachments available.
+            </center>
+        </div>
+    </div>
+    <!-- /Right Section -->
+</div>

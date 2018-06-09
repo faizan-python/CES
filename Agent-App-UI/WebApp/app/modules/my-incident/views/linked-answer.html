@@ -1,0 +1,59 @@
+<div class="panel-heading" role="tab" id="headingThree">
+    <h4 class="panel-title" ng-click="selectAccordianTab('linkedAnswer')">
+        <a class="collapsed linkedAnswer" role="button" data-toggle="collapse"
+           data-parent="#wipAccordion" data-target="#collapseThree" aria-expanded="false"
+           aria-controls="collapseThree">
+            Linked answers
+        </a>
+    </h4>
+</div>
+<div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+    <div class="wipLocationPanInner">
+
+        <!-- Dynamic nearby location search -->
+        <div class="text-center nearby-location-loader" ng-if="nearbyloader"><img
+                src="/static/assets/images/loading-animation.gif"/></div>
+
+        <dl>
+            <dt>Linked Solutions:</dt>
+            <dd class="ng-binding" ng-repeat="solution in ticket_linked_iteams.solutions_linked">
+                <p>
+                   <label><input ng-change="changeLinkedSolutionSuccessStatus(solution_successful_status, solution.id)" ng-model="solution_successful_status" ng-init="solution_successful_status=solution.is_successful" type="checkbox" checked="solution.is_successful" value="">&nbsp;</label>
+                    {{ solution.solution }},
+                    <br> {{ solution.tags }}
+                </p>
+                <p></p>
+            </dd>
+            <dd class="ng-binding" ng-if="!ticket_linked_iteams.solutions_linked">
+                <p><b>No Linked Solutions yet.</b>
+                </p>
+
+                <p></p>
+            </dd>
+        </dl>
+        <dl>
+            <dt>Linked Tickets:</dt>
+            <dd class="ng-binding" ng-repeat="ticket in ticket_linked_iteams.tickets_linked">
+                <p>
+                   <label><input ng-change="changeLinkedTicketSuccessStatus(ticket_successful_status, ticket.id)" checked="ticket.is_successful" ng-init="ticket_successful_status=ticket.is_successful" ng-model="ticket_successful_status" type="checkbox" value="">&nbsp;</label>
+                    {{ticket.description}},
+                    <br> {{ticket.tags}}
+                </p>
+                <p></p>
+            </dd>
+            <dd class="ng-binding" ng-if="!ticket_linked_iteams.tickets_linked">
+                <p><b>No Linked Ticket yet.</b>
+                </p>
+
+                <p></p>
+            </dd>
+        </dl>
+    </div>
+    <div class="panel-body accordian-scroll-content-linked()" ng-if="linkedsolutions.length == 0">
+        <p>
+        <center>
+            <br> <a target="_blank">
+            No linked solutions yet.</a></center>
+        </p>
+    </div>
+</div>

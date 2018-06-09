@@ -1,0 +1,24 @@
+<div class="round-pan">
+    <h3>Top Unassigned Incidents</h3>
+    <div class="scrollHeight">
+        <ul>
+            <li ng-click="openIncidentAvailaibility(ticket)" ng-repeat="ticket in agent_top_tickets" class="mouser-pointer">
+                <div class="row">
+                    <div class="col-md-4" ng-if="ticket.attachments.length > 0 && ticket.attachments[0].asset_type==1">
+                        <div class="imgPic"><img ng-src="{{ticket.attachments[0].attachment}}"></div>
+                    </div>
+                    <div class="col-md-4" ng-if="ticket.attachments.length > 0 && ticket.attachments[0].asset_type==3">
+                        <div class="imgPic"><img ng-src="{{ticket.attachments[0].cover_photo}}"></div>
+                    </div>
+                    <div class="col-md-4" ng-if="!ticket.attachments || ticket.attachments[0].asset_type==2">
+                        <div class="imgPic"><img ng-src="/static/assets/images/pic-01.jpg"></div>
+                    </div>
+                    <div class="col-md-8 noPad">
+                        <h4>{{ ticket.description | limitTo: 30 }}{{ticket.description.length > 30 ? '...' : ''}}</h4>
+                        <p>{{ticket.description}} </p>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>

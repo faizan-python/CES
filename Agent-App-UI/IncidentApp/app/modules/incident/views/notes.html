@@ -1,0 +1,42 @@
+<div class="panel-heading" role="tab" id="headingTwo">
+    <h4 class="panel-title" ng-click="selectAccordianTab('notes')">
+        <a class="collapsed noteLink" role="button" data-toggle="collapse"
+           data-parent="#wipAccordion" data-target="#collapseTwo" aria-expanded="false"
+           aria-controls="collapseTwo">
+            Notes and updates
+        </a>
+    </h4>
+</div>
+<div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+    <div class="panel-body">
+        <!-- Chat Section -->
+        <div class="accordian-scroll-content-notes">
+            <div class="chatPan" ng-repeat="note in incidents_note.results|orderBy:'date':false">
+                <div ng-if="note.notes_text">
+                    <div class="chatLeft" ng-if="note.user.email != personal_info.email">
+                        <p ng-bind-html="private_message.message_text | nl2br"></p>
+                    </div>
+                    <div class="clearfix"></div>
+                    <!-- /Chat Left -->
+                    <!-- Chat Right -->
+                    <div class="chatRight" ng-if="note.user.email == personal_info.email">
+                        <p>{{note.notes_text}}</p>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <!-- /Chat Right -->
+            </div>
+        </div>
+        <div ng-if="incidents_note.results[0]">
+
+        </div>
+        <div class="chatSubmit2">
+            <form ng-submit="postnote()">
+                <input ng-model="note.text" type="text" placeholder="Write message">
+            </form>
+            <button class="butt pull-right" ng-click="postnote()">Attach</button>
+            <div class="clearfix"></div>
+        </div>
+
+    </div>
+</div>

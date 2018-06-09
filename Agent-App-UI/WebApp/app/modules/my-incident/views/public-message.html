@@ -1,0 +1,76 @@
+
+<div class="accordian-scroll-content-response" id="commentScroll">
+    <h5 class="load-earlier text-center" ng-if="next_url">
+        <a ng-if="!loading" ng-click="loadMoreComments(next_url)">Load Earlier Public Messages</a>
+    </h5>
+    <div class="text-center" ng-if="loading"><img src="/static/assets/images/loading-animation.gif"/></div>
+    <div class="chatPan" ng-repeat="comment in incident_comment|orderBy:'created_at':false">
+        <!-- Chat Left -->
+        <div>
+            <span style="width:50px;height:50px;float:left;"
+                ng-if="comment.user.email != personal_info.email">
+            <img ng-if="comment.user.profile_picture" class="img-circle"
+                ng-src="{{comment.user.profile_picture }}" height="50px" width="50px">
+            <img ng-if="!comment.user.profile_picture" class="img-circle"
+                src="/static/assets/images/user.png" height="50px" width="50px">
+            </span>
+            <div class="chatLeft" ng-if="comment.user.email != personal_info.email">
+                <span class="pull-left">
+                <strong>
+                {{ comment.user.full_name }}
+                </strong>
+                </span>
+                <br/>
+                <p ng-if="comment.comment_text"
+                    ng-bind-html="comment.comment_text | nl2br | linkyUnsanitized:'_blank'"></p>
+                <p ng-click="openAssetDetail('', comment)" class="text-center"
+                    ng-if="!comment.comment_text">
+                    <img ng-if="comment.attachment.asset_type==1" class="assets-attachment"
+                        ng-src="{{comment.attachment.attachment}}">
+                    <img ng-if="comment.attachment.asset_type==3" class="assets-attachment"
+                        ng-src="{{comment.attachment.cover_photo}}">
+                </p>
+                <span class="pull-right text-right" style="font-size:10px;">
+                {{ comment.created_at | date:"dd MMM yyyy 'at' h:mma"}}
+                </span>
+            </div>
+            <div class="clearfix"></div>
+            <span style="width:50px;height:50px;float:right;"
+                ng-if="comment.user.email == personal_info.email">
+            <img ng-if="comment.user.profile_picture" class="img-circle"
+                ng-src="{{comment.user.profile_picture }}" height="50px" width="50px">
+            <img ng-if="!comment.user.profile_picture" class="img-circle"
+                src="/static/assets/images/user.png" height="50px" width="50px">
+            </span>
+            <div class="chatRight" ng-if="comment.user.email == personal_info.email">
+                <span class="pull-right">
+                <strong>
+                {{ comment.user.full_name }}
+                </strong>
+                </span>
+                <br/>
+                <p ng-if="comment.comment_text"
+                    ng-bind-html="comment.comment_text | nl2br | linkyUnsanitized:'_blank'"></p>
+                <p class="text-center" ng-if="!comment.comment_text">
+                    <img ng-if="comment.attachment.asset_type==1" class="assets-attachment"
+                        ng-src="{{comment.attachment.attachment}}">
+                    <img ng-if="comment.attachment.asset_type==3" class="assets-attachment"
+                        ng-src="{{comment.attachment.cover_photo}}">
+                </p>
+                <span class="pull-right text-right" style="font-size:10px;">
+                {{ comment.created_at | date:"dd MMM yyyy 'at' h:mma"}}
+                </span>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<div class="chatSubmit1">
+    <form ng-submit="postcomment()">
+        <textarea ng-keypress="$event.keyCode == 13 && postcomment()" ng-model="inputcomment.text" type="text" placeholder="Write comment"></textarea>
+    </form>
+    <button class="butt" ng-click="postcomment()">Post</button>
+    <a href="" ng-click="event.preventDefault(); exportcomments()" class="export pull-right"
+        title="Export Comments"></a>
+    <div class="clearfix"></div>
+</div>

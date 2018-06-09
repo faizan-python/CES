@@ -1,0 +1,196 @@
+<div class="panel-group" id="responseAccordion" role="tablist" aria-multiselectable="true">
+    <!-- Favorite -->
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="closeHead">
+            <h4 class="panel-title" id="close-right-slider">
+                <a class="collapsed no-padding" role="button" data-toggle="collapse" data-parent="#responseAccordion"
+                   aria-expanded="true" aria-controls="responseFav">
+                    <span class="responseHead pull-left" title="close">
+                        <img id="right-slider-close" src="/static/assets/images/accord-right-arrow.png">
+                    </span>
+                </a>
+            </h4>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="responseFavHead">
+            <h4 class="panel-title">
+                <a class="collapsed top-padding-min" role="button" data-toggle="collapse"
+                   data-parent="#responseAccordion"
+                   data-target="#responseFav" aria-expanded="true" aria-controls="responseFav"
+                   ng-click="getFavouriteTickets()">
+                    <i class="responIcon-like"></i>
+                    <span class="responseHead">Favorite</span>
+                </a>
+            </h4>
+        </div>
+        <div id="responseFav" class="panel-collapse collapse" role="tabpanel" aria-labelledby="responseFavHead">
+            <div class="panel-body">
+                <ul class="responseCont">
+                    <div ng-if="favourite_tickets_len == 0">
+                        <li>
+                            <span>No Favourities.</span>
+                        </li>
+                    </div>
+                    <li ng-repeat="ticket in favourite_tickets_data">
+                        <span><p>{{ticket.description | limitTo: 30 }}</p></span>
+                        <img src="/static/assets/images/link-icon.png" class="linkImg mouser-pointer"
+                             ng-if="!ticket.is_linked_ticket" ng-click="get_ticket_url(ticket.id, favourite_tickets_data)">
+
+                        <img src="/static/assets/images/link-icon.png" class="linkImg-fill-link mouser-pointer"
+                             ng-if="ticket.is_linked_ticket" ng-click="get_ticket_url(ticket.id, favourite_tickets_data)">
+
+                        <div id="sim-inc-{{ticket.id}}" ng-if="ticket.agent_favourite_ticket == true"
+                             ng-click="make_ticket_favourite(ticket.id, favourite_tickets_data)"
+                             class="linkImg-fill-star"></div>
+                        <div id="sim-inc-{{ticket.id}}" ng-if="ticket.agent_favourite_ticket == false"
+                             ng-click="make_ticket_favourite(ticket.id, favourite_tickets_data)"
+                             class="linkImg-empty-star"></div>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /Favorite -->
+    <!-- Answer -->
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="responseAnswerHead">
+            <h4 class="panel-title">
+                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#responseAccordion"
+                   data-target="#responseAnswer" aria-expanded="false" aria-controls="responseAnswer"
+                   ng-click="getSimilarSolutions()">
+                    <i class="responIcon-book"></i>
+                    <span class="responseHead">Answer</span>
+                </a>
+            </h4>
+        </div>
+        <div id="responseAnswer" class="panel-collapse collapse" role="tabpanel"
+             aria-labelledby="responseAnswerHead">
+            <div class="panel-body">
+                <ul class="responseCont">
+                    <div ng-if="similar_solutions_len == 0">
+                        <li>
+                            <span>No Similar Answers.</span>
+                        </li>
+                    </div>
+                    <li ng-repeat="solution in similar_solutions_data">
+                        <span ng-class="mouse-hand"><p class="mouser-pointer">{{solution.solution | limitTo: 30
+                            }}</p></span>
+
+                        <div id="sim-sol-{{solution.id}}" class="linkImg-empty-link"
+                             ng-if="!solution.is_linked_solution" ng-click="link_solution(solution)"></div>
+                        <div id="sim-sol-{{solution.id}}" class="linkImg-fill-link"
+                             ng-if="solution.is_linked_solution" ng-click="remove_link_solution(solution)"></div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /Answer -->
+    <!-- Similar Incident -->
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="responseIncidentHead">
+            <h4 class="panel-title">
+                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#responseAccordion"
+                   data-target="#responseIncident" aria-expanded="false" aria-controls="responseIncident"
+                   ng-click="GetSimilarTickets()">
+                    <i class="responIcon-check"></i>
+                    <span class="responseHead">Similar Incident</span>
+                </a>
+            </h4>
+        </div>
+        <div id="responseIncident" class="panel-collapse collapse" role="tabpanel"
+             aria-labelledby="responseIncidentHead">
+            <div class="panel-body">
+                <ul class="responseCont">
+                    <div ng-if="similar_tickets_len == 0">
+                        <li>
+                            <span>No Similar Incidents.</span>
+                        </li>
+                    </div>
+                    <li ng-repeat="ticket in similar_tickets_data">
+                        <span><p>{{ticket.description | limitTo: 30 }}</p></span>
+                        <img src="/static/assets/images/link-icon.png" class="linkImg mouser-pointer"
+                        ng-if="!ticket.is_linked_ticket" ng-click="get_ticket_url(ticket.id, similar_tickets_data)">
+
+                        <img src="/static/assets/images/link-icon.png" class="linkImg-fill-link mouser-pointer"
+                        ng-if="ticket.is_linked_ticket" ng-click="get_ticket_url(ticket.id, similar_tickets_data)">
+
+
+                        <div id="sim-inc-{{ticket.id}}" ng-if="ticket.agent_favourite_ticket == true"
+                             ng-click="make_ticket_favourite(ticket.id, similar_tickets_data)"
+                             class="linkImg-fill-star"></div>
+                        <div id="sim-inc-{{ticket.id}}" ng-if="ticket.agent_favourite_ticket == false"
+                             ng-click="make_ticket_favourite(ticket.id, similar_tickets_data)"
+                             class="linkImg-empty-star"></div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /Similar Incident -->
+    <!-- NEXT BEST ACTION -->
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="responseActionHead">
+            <h4 class="panel-title">
+                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#responseAccordion"
+                   data-target="#responseAction" aria-expanded="false" aria-controls="responseAction">
+                    <i class="responIcon-text"></i>
+                    <span class="responseHead">NEXT BEST ACTION</span>
+                </a>
+            </h4>
+        </div>
+        <div id="responseAction" class="panel-collapse collapse" role="tabpanel"
+             aria-labelledby="responseActionHead">
+            <div class="panel-body">
+                <ul class="responseCont">
+                    <li>
+                        <span>Lorem ipsum dolor sit </span>
+                        <img src="/static/assets/images/link-icon.png" class="linkImg">
+                        <img src="/static/assets/images/star-icon.png" class="linkImg">
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /NEXT BEST ACTION -->
+    <!-- OFFERS -->
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="responseOfferHead">
+            <h4 class="panel-title">
+                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#responseAccordion"
+                   data-target="#responseOffer" aria-expanded="false" aria-controls="responseOffer">
+                    <i class="responIcon-price"></i>
+                    <span class="responseHead">OFFERS</span>
+                </a>
+            </h4>
+        </div>
+        <div id="responseOffer" class="panel-collapse collapse" role="tabpanel"
+             aria-labelledby="responseOfferHead">
+            <div class="panel-body">
+                <ul class="responseCont">
+                    <li>
+                        <span>Offer 1</span>
+                        <!--<div id="viewoffer1" class="gift"><span class="glyphicon glyphicon-gift"></span></div>-->
+                        <div id="sendoffer1" class="gift" ng-click="sendOffer('1')"><span class="glyphicon glyphicon-send"></span></div>
+                    </li>
+                    <li>
+                        <span>Offer 2</span>
+                        <div id="sendoffer2" class="gift" ng-click="sendOffer('2')"><span class="glyphicon glyphicon-send"></span></div>
+                    </li>
+                    <li>
+                        <span>Offer 3</span>
+                        <div id="sendoffer3" class="gift" ng-click="sendOffer('3')"><span class="glyphicon glyphicon-send"></span></div>
+                    </li>
+                    <li>
+                        <span>Offer 4</span>
+                        <div id="sendoffer4" class="gift" ng-click="sendOffer('4')"><span class="glyphicon glyphicon-send"></span></div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /OFFERS -->
+</div>

@@ -1,0 +1,153 @@
+<div class="row m-b" style="padding: 5px;">
+    <div class="col-sm-6">
+        <div class="row m-b">
+            <div class="col-sm-3">
+                <label>Desciption</label>
+            </div>
+            <div class="col-sm-9">
+                <label ng-bind="incident_selected_ticket.description"
+                       ng-if="incident_selected_ticket.description"></label>
+                <label ng-if="!incident_selected_ticket.description">NA</label>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="row m-b">
+            <div class="col-sm-3">
+                <label>Account</label>
+            </div>
+            <div class="col-sm-9" ng-hide="editAssignAgent">
+                <label ng-bind="incident_selected_ticket.account.name"
+                       ng-if="incident_selected_ticket.account.name"></label>
+                <label ng-if="!incident_selected_ticket.account.name">NA</label>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row m-b" style="padding: 5px;">
+    <div class="col-sm-6">
+        <div class="row m-b">
+            <div class="col-sm-3">
+                <label>Name</label>
+            </div>
+            <div class="col-sm-9" ng-hide="editname">
+                <label ng-bind="incident_selected_ticket.name"
+                       ng-if="incident_selected_ticket.name"></label>
+                <label ng-if="!incident_selected_ticket.name">NA</label>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="row m-b">
+            <div class="col-sm-3">
+                <label>Assign Agent</label>
+            </div>
+            <div class="col-sm-9" ng-hide="editAssignAgent">
+                <label ng-if="incident_selected_ticket.assign_agent.full_name"
+                       ng-bind="incident_selected_ticket.assign_agent.full_name"></label>
+                <label ng-if="!incident_selected_ticket.assign_agent.full_name">NA</label>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row m-b" style="padding: 5px;">
+    <div class="col-sm-6">
+        <div class="row m-b">
+            <div class="col-sm-3">
+                <label>Category</label>
+            </div>
+            <div class="col-sm-9" ng-hide="editCategory">
+                <p style="line-height: 1.42857143;" class="pull-left"
+                   ng-if="incident_selected_ticket.category.length">
+                    <span
+                            class="label"
+                            ng-repeat="category in incident_selected_ticket.category">
+                        {{category.name}}
+                    </span>
+                </p>
+                <label ng-if="!incident_selected_ticket.category.length">NA</label>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="row m-b">
+            <div class="col-sm-3">
+                <label>Product</label>
+            </div>
+            <div class="col-sm-9" ng-hide="editProduct">
+                <div style="line-height: 1.42857143;float: left;"
+                     ng-if="incident_selected_ticket.product.length">
+                    <span
+                            class="label"
+                            ng-repeat="product in incident_selected_ticket.product"
+                            style="font-size:12px;">
+                        {{product.name}}
+                    </span>
+                </div>
+                <label ng-if="!incident_selected_ticket.product.length">NA</label>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row m-b" style="padding: 5px;">
+    <div class="col-sm-6">
+        <div class="row m-b">
+            <div class="col-sm-3">
+                <label>Tags</label>
+            </div>
+            <div class="col-sm-9" ng-hide="editTags">
+                <div style="line-height: 1.42857143; float: left;width:90%;" ng-if="current_tag_list.length">
+                    <label
+                            class="label"
+                            ng-repeat="tags in current_tag_list"
+                            style="font-size:12px;display: inline-flex;">
+                        {{tags}}
+                    </label>
+                </div>
+                <label ng-if="!current_tag_list.length">NA</label>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="row m-b">
+            <div class="col-sm-3">
+                <label>Unique Issues</label>
+            </div>
+            <div class="col-sm-9" ng-hide="editIssues">
+                <div style="line-height: 1.42857143;float: left;width:90%;" ng-if="current_unique_issue_list.length">
+                    <span
+                            class="label"
+                            ng-repeat="selected_unique_issues in current_unique_issue_list"
+                            style="font-size:12px;display: inline-flex;">
+                        {{selected_unique_issues}}
+                    </span>
+                </div>
+                <label ng-if="!current_unique_issue_list.length">NA</label>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row m-b" style="padding: 5px;">
+    <div class="col-sm-6">
+        <div class="row m-b">
+            <div class="col-sm-3">
+                <label>Serial Number</label>
+            </div>
+            <div class="col-sm-9" ng-hide="editserial_number">
+                <label ng-bind="incident_selected_ticket.serial_no" ng-if="incident_selected_ticket.serial_no"></label>
+                <label ng-if="!incident_selected_ticket.serial_no">NA</label>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="row m-b">
+            <div class="col-sm-3">
+                <label>Model Number</label>
+            </div>
+            <div class="col-sm-9" ng-hide="editmodel_number">
+                <label ng-if="incident_selected_ticket.model_no" ng-bind="incident_selected_ticket.model_no"></label>
+                <label ng-if="!incident_selected_ticket.model_no">NA</label>
+            </div>
+        </div>
+    </div>
+</div>

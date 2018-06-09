@@ -1,0 +1,18 @@
+<div class="modal-header">
+    <span class="modal-title text-center"><b>{{item.user.full_name}}</b></span>
+    <span class="modal-title pull-right"><b>{{item.created_at | date:"dd MMM yyyy 'at' h:mma"}}</b></span>
+</div>
+<div class="modal-body">
+    <ul>
+        <div class="embed-responsive embed-responsive-16by9 text-center" ng-if="item.attachment.asset_type==1">
+            <img style="max-height: 401px; max-width: 400px; position: relative;" ng-src="{{item.attachment.attachment}}">
+        </div>
+        <div class="embed-responsive embed-responsive-16by9" ng-if="item.attachment.asset_type==3">
+            <iframe class="embed-responsive-item" ng-src="{{item.attachment.attachment}}" ></iframe>
+        </div>
+    </ul>
+
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="ok()">Close</button>
+</div>

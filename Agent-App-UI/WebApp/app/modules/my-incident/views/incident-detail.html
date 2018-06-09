@@ -1,0 +1,250 @@
+<div class="{{ 'col-md-' + inceidentPanelLength}} incident-right">
+    <h2>WELCOME <span>{{personal_info.full_name}}</span></h2>
+    <!-- Tab Section -->
+    <div class="col-md-12 full-block-panel">
+        <div class="wipTabPan">
+            <p class="wipTabActionText">Last Actions : 2 min ago</p>
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs wipTab" role="tablist">
+                <li ng-repeat="ticket in openTicketList track by $index" role="presentation" class="active">
+                    <a style="cursor:pointer" aria-controls="wip1" role="tab" data-toggle="tab"
+                       ng-class="appliedClass($index)">
+                        <span ng-click="changeCurrentSelectedTicket(ticket)">Incident No. {{ticket.incident_number}}</span>
+                        <span class="glyphicon glyphicon-remove" ng-click="closeTicket(ticket)"></span>
+                    </a>
+                </li>
+            </ul>
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="wip1">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div class="incidentHeadPic">
+                                <img ng-if="incident_selected_ticket.reported_by.profile_picture != null"
+                                     ng-src={{incident_selected_ticket.reported_by.profile_picture}}>
+                                <img ng-if="incident_selected_ticket.reported_by.profile_picture == null"
+                                     src="/static/assets/images/user.png">
+                            </div>
+                            <div class="wipTabCont">
+                                <h3>{{incident_selected_ticket.reported_by.full_name}} </h3>
+                                <!-- Tooltip Panel -->
+                                <span class="tooltipWindowPan">
+                                    <img src="/static/assets/images/information-icon.png" class="help pointer">
+                                    <div class="tooltipWindow">
+                                        <img src="/static/assets/images/close-icon.png" class="closePan">
+                                        <h4>{{incident_selected_ticket.reported_by.full_name}}</h4>
+                                        <p>Techie Guy</p>
+                                        <div class="progress">
+                                            <div style="width: {{incident_selected_ticket.reported_by.infulence_score}}%"
+                                                 aria-valuemax="100" aria-valuemin="0"
+                                                 aria-valuenow="{{incident_selected_ticket.reported_by.infulence_score}}"
+                                                 role="progressbar" class="progress-bar"
+                                                 ng-class="helpers.getProgressBarClass (incident_selected_ticket.reported_by.infulence_score )">
+                                            </div>
+                                        </div>
+                                        <p class="progressText">Influence meter: {{incident_selected_ticket.reported_by.infulence_score}}%</p>
+                                        <div class="col-md-6 toolTipCall">
+                                            <img src="/static/assets/images/call-icon-small.png">
+                                            <p>{{incident_selected_ticket.reported_by.phone_number}}</p>
+                                        </div>
+                                        <div class="col-md-6 toolTipMail">
+                                            <img src="/static/assets/images/mail-icon-small.png">
+                                            <p>{{incident_selected_ticket.reported_by.email}}</p>
+                                        </div>
+                                    </div>
+                                </span>
+                                <!-- /Tooltip Panel -->
+                                <ul class="wipSocial">
+                                    <li>
+                                        <span ng-if="incident_selected_ticket.agent_favourite_ticket == false"
+                                              class="empty-star"
+                                              ng-click="ticket_favourite(incident_selected_ticket.id)"></span>
+                                        <span ng-if="incident_selected_ticket.agent_favourite_ticket == true"
+                                              class="fill-star"
+                                              ng-click="ticket_favourite(incident_selected_ticket.id)"></span>
+                                    </li>
+                                    <!--<li>-->
+                                    <!--<a href="#"><img src="/static/assets/images/fb-icon.png"></a>-->
+                                    <!--</li>-->
+                                    <!--<li>-->
+                                    <!--<a href="#"><img src="/static/assets/images/twitter-icon.png"></a>-->
+                                    <!--</li>-->
+                                    <!--<li>-->
+                                    <!--<a href="#"><img src="/static/assets/images/call-icon.png"></a>-->
+                                    <!--</li>-->
+                                    <!--<li>-->
+                                    <!--<a href="#"><img src="/static/assets/images/mail-icon.png"></a>-->
+                                    <!--</li>-->
+                                </ul>
+                                <div class="clearfix"></div>
+                                <p>{{incident_selected_ticket.description}}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <span ng-if="incident_selected_ticket.srn_number">
+                            <span class="caseText"><b>CSR NO : {{incident_selected_ticket.srn_number}}</b></span>
+                            <span class="dueText">Due : 2 hours</span>
+                            </span>
+                            <span ng-if="!incident_selected_ticket.srn_number">
+                            <button class="butt createButtPadd">CREATE CASE</button>
+                            </span>
+                            <span ng-if="!incident_selected_ticket.crm_ticket_id">
+                                <button class="butt createButtPadd" ng-click="openCloseModal()"
+                                        ng-if="incident_selected_ticket.ticket_status != 'Closed'">Close</button>
+                            </span>
+                            <button class="butt createButtPadd" ng-click="stop_video_chat()"
+                                    style="display: none;" id="StopVideoChat">Stop Video Chat
+                            </button>
+                            <button ng-disabled="incident_selected_ticket.ticket_status == 'Closed'"
+                                    ng-class="(incident_selected_ticket.ticket_status =='Closed') ? 'butt-close' : 'butt'"
+                                    class="createButtPadd"
+                                    ng-click="start_video_chat()"
+                                    id="StartVideoChat">Start Video Chat
+                            </button>
+                            <div class="clearfix"></div>
+                            <div class="incident-bar">
+                                <div class="img-crown">
+                                    <img src="/static/assets/images/crown-icon.png">
+                                </div>
+                                <div class="progress">
+                                    <div style="width: {{incident_selected_ticket.reported_by.infulence_score}}%"
+                                         aria-valuemax="100" aria-valuemin="0"
+                                         aria-valuenow="{{incident_selected_ticket.reported_by.infulence_score}}"
+                                         role="progressbar" class="progress-bar"
+                                         ng-class="helpers.getProgressBarClass (incident_selected_ticket.reported_by.infulence_score )">
+                                         ng-class="helpers.getProgressBarClass (incident_selected_ticket.reported_by.infulence_score )">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" ng-include="'/static/modules/my-incident/views/incident-description.html'">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Tab Section -->
+    <!-- Accordion -->
+    <div class="col-md-7 left-block-panel">
+        <div class="wipVideoPan" id="videoChatPanel" style="display: none;min-height: 174px;">
+            <h3>Video Chat</h3>
+            <div class="wipVideoPanInner" id="videoChatSection" style="min-height: 232px;height: 161px;">
+                <div class="col-md-6" id="publisher">
+                    <div class="wipVideoPanInner" id="publisherChatLoader"
+                         style="min-height: 174px;height: 161px; background:url('/static/assets/incident/images/loader-2.gif')no-repeat center center; position:absolute; left:0;right:0;top:0;bottom:0;margin: 0 auto;">
+                        <audio id="callaudio" src="/static/assets/incident/audio/call_tone.mp3" preload="auto"></audio>
+                    </div>
+                </div>
+                <div class="col-md-6" id="subscribers">
+                    <div class="wipVideoPanInner" id="subscriberChatLoader"
+                         style="min-height: 174px;height: 161px; background:url('/static/assets/incident/images/call-loader.gif')no-repeat center center; position:absolute; left:0;right:0;top:0;bottom:0;margin: 0 auto;">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-group wipAcc" id="wipAccordion" role="tablist" aria-multiselectable="true">
+            <div class="panel panel-default"
+                 ng-include="'/static/modules/my-incident/views/response-message.html'"></div>
+            <div class="panel panel-default" ng-include="'/static/modules/my-incident/views/notes.html'"></div>
+            <div class="panel panel-default" ng-include="'/static/modules/my-incident/views/linked-answer.html'"></div>
+        </div>
+        <div class="wipVideoPan wipLocationPan">
+            <h3>Nearby Locations</h3>
+            <form ng-if="incident_selected_ticket.address" ng-submit="searchNearbyLocation()">
+                <input type="Search" ng-model="nearbysearch.string" class="head-search"
+                       placeholder="Search Nearby Location">
+            </form>
+            <div class="wipLocationPanInner" ng-if="incident_selected_ticket.address">
+                <!-- Dynamic nearby location search -->
+                <div class="text-center nearby-location-loader" ng-if="nearbyloader"><img
+                        src="/static/assets/images/loading-animation.gif"/></div>
+                <dl ng-if="searchresult" ng-repeat="(searchkeyword, searchresult) in searchnearbylocations">
+                    <dt style="text-transform: capitalize;">{{searchkeyword }}:</dt>
+                    <dd class="ng-binding" ng-repeat="result in searchresult">
+                        <p>{{result.name}},
+                            <br> {{result.vicinity}}
+                        </p>
+                        <p></p>
+                    </dd>
+                </dl>
+                <dl ng-if="nearbylocations.hospital_object">
+                    <dt>Hospitals:</dt>
+                    <dd class="ng-binding" ng-repeat="hospitals in nearbylocations.hospital_object">
+                        <p>{{hospitals.name}},
+                            <br> {{hospitals.vicinity}}
+                        </p>
+                        <p></p>
+                    </dd>
+                </dl>
+                <dl ng-if="nearbylocations.policestation_object">
+                    <dt>Police Stations:</dt>
+                    <dd class="ng-binding" ng-repeat="policestation in nearbylocations.policestation_object">
+                        <p>{{policestation.name}},
+                            <br> {{policestation.vicinity}}
+                        </p>
+                        <p></p>
+                    </dd>
+                </dl>
+                <dl ng-if="nearbylocations.tatamotors_object">
+                    <dt>Tata Motors:</dt>
+                    <dd class="ng-binding" ng-repeat="tatamotors in nearbylocations.tatamotors_object">
+                        <p>{{tatamotors.name}},
+                            <br> {{tatamotors.vicinity}}
+                        </p>
+                        <p></p>
+                    </dd>
+                </dl>
+            </div>
+            <div class="wipLocationPanInner" ng-if="!incident_selected_ticket.address">
+                Location Not Available
+            </div>
+        </div>
+    </div>
+    <!-- /Accordion -->
+    <div class="col-md-5 right-block-panel">
+        <div class="wipVideoPan">
+            <h3>Attachments</h3>
+            <div class="wipVideoPanInner">
+                <span ng-if="incident_selected_ticket.attachments.length"
+                      ng-repeat="attach in incident_selected_ticket.attachments">
+                    <img ng-if="attach.asset_type==1" ng-src="{{attach.attachment}}">
+                    <audio ng-if="attach.asset_type==2" controls>
+                        <source ng-src="{{attachments.attachment}}" type="audio/mpeg">
+                    </audio>
+                    <iframe ng-if="attach.asset_type==3" class="embed-responsive-item"
+                            ng-src="{{attach.attachment}}"></iframe>
+                    <!--<video ng-if="attach.asset_type==3" controls height="400" width="229">-->
+                    <!--<source ng-src="{{attach.attachment}}">-->
+                    <!--</video>-->
+                </span>
+                <span ng-if="!incident_selected_ticket.attachments.length">
+                <img alt="User has not uploaded any attachment for reported incident">
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-5 right-block-panel">
+        <div class="wipVideoPan wipLocationPan">
+            <h3>Reported Location</h3>
+            <div ng-if="incident_selected_ticket.address" class="col-md-12 left-block-panel wipVideoPan"
+                 style="margin-bottom:30px; min-height: 220px">
+                <ui-gmap-google-map center='map.center' options="option" pan="true" style="width: 100%; height:200px;"
+                                    zoom='map.zoom'>
+                    <ui-gmap-marker coords="map.center" idkey="map.id">
+                    </ui-gmap-marker>
+                </ui-gmap-google-map>
+            </div>
+            <div ng-if="!incident_selected_ticket.address" class="col-md-12 left-block-panel wipVideoPan"
+                 style="margin-bottom:30px; min-height: 20px">
+                Location Not Available
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+</div>
+
+<!-- Right Slider Has been Removed -->
+<!-- <div class="responseList" ng-include="'/static/modules/my-incident/views/right_slider.html'"></div> -->
+
+<div class="coverAll"></div>

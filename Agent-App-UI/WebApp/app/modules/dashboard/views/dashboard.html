@@ -1,0 +1,43 @@
+<!-- Middle Section -->
+<div class="col-md-8 home-mid">
+    <h2>WELCOME <span>{{personal_info.full_name}} </span></h2>
+
+    <div ng-include="'/static/modules/dashboard/views/flagged-product.html'" class="col-md-6 left-block-panel">
+
+    </div>
+    <div class="col-md-6 right-block-panel">
+        <div class="round-pan graphHeight">
+            <h3>Support Rating - Top 10 Products </h3>
+            <div id="bubblechart" google-chart chart="chartObject" style="{{cssStyle}}" custom-select="handleSelect"></div>
+            <!--<p class="pAll20">Lorem ipsum dolor sit amet. </p>-->
+            <!--<img src="/static/assets/images/graph-pic.gif" class="img-responsive pBot15">-->
+        </div>
+    </div>
+    <div ng-include="'/static/modules/dashboard/views/my-incident.html'" class="col-md-12 full-block-panel">
+
+    </div>
+</div>
+
+<!-- /Middle Section -->
+<!-- Right Section -->
+<div class="col-md-2 home-right">
+    <h3>Top influencers - {{product_name | uppercase}} </h3>
+    <ul class="influencer">
+        <li ng-repeat="user in top_user_influencers">
+            <div class="picWidth">
+                <div ng-if="!user.user.profile_picture" class="picCont"><img ng-src="/static/assets/images/sample-pic-01.jpg"></div>
+                <div ng-if="user.user.profile_picture" class="picCont"><img ng-src="{{user.user.profile_picture}}"></div>
+            </div>
+            <p class="name">{{user.user.full_name}}</p>
+
+            <p class="value">{{user.product_influence_percentage}}%</p>
+
+            <div class="clearfix"></div>
+            <div class="progress">
+                <div class="progress-bar" ng-class="helpers.getProgressBarClass (user.product_influence_percentage )" role="progressbar" aria-valuenow="100"
+                     aria-valuemin="0" aria-valuemax="100" style="width: {{user.product_influence_percentage}}%">
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>

@@ -1,0 +1,33 @@
+<div class="modal-header text-center">
+    <span class="modal-title"><b>Close Incident</b></span>
+</div>
+
+<div class="modal-body">
+    <div>
+        <label class="close-label">Incident Description : </label><br/>
+        <label class="close-text">{{ item.description }}</label>
+    </div>
+    <div>
+        <label class="close-label">Tags : </label><br/>
+        <tags-input ng-model="selected.tags" class="close-tag-text" replace-spaces-with-dashes=false></tags-input>
+    </div>
+
+    <div>
+        <label class="close-label">Sub Status : </label><br/>
+        <select ng-model="selected.sub_status" ng-options="x for x in sub_status"></select>
+    </div>
+
+    <div>
+        <label class="close-label">Solution : </label><br/>
+            <textarea class="close-text" autofocus="true" ng-model="selected.inputsolution" type="text" placeholder="Write Solution" rows="8"
+                      cols="68"></textarea>
+    </div>
+    <div ng-if="isBlank" class="alert alert-warning fade in">
+        <strong>Warning! </strong>{{message}}
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button class="btn btn-primary" type="submit" ng-click="submit()">Submit</button>
+    <button class="btn btn-primary" type="button" ng-click="cancel()">Cancel</button>
+</div>

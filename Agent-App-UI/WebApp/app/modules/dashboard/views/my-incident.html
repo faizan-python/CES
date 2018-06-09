@@ -1,0 +1,50 @@
+<div ng-app="dashboard.controller" class="round-pan">
+    <h3>My Incidents<!--<span>Updated 9:00 pm</span>--></h3>
+    <div class="scrollHeight">
+        <div ng-click="$parent.showTicketDetails(product)" class="col-md-6 mouser-pointer"
+             ng-repeat="product in $root.agent_assigned_tickets track by $index" ng-if="$index%2==0">
+            <ul>
+                <li>
+                    <div class="row addons">
+                        <div class="col-md-4"
+                             ng-if="product.attachments.length > 0 && product.attachments[0].asset_type==1">
+                            <div class="imgPic"><img ng-src="{{product.attachments[0].attachment}}"></div>
+                        </div>
+                        <div class="col-md-4"
+                             ng-if="!product.attachments || product.attachments.length < 1 || product.attachments[0].asset_type!=1">
+                            <div class="imgPic"><img ng-src="/static/assets/images/pic-01.jpg"></div>
+                        </div>
+                        <div class="col-md-8 noPad">
+                            <h4>{{ product.description | limitTo: 25 }}{{product.description.length > 25 ? '..' :
+                                ''}}</h4>
+                            <p> {{product.description | limitTo: 50}}{{product.description.length > 50 ? '...' :''}}</p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div ng-click="$parent.showTicketDetails(product)" class="col-md-6 mouser-pointer"
+             ng-repeat="product in $root.agent_assigned_tickets track by $index"
+             ng-if="$index%2==1 ">
+            <ul>
+                <li>
+                    <div class="row addons">
+                        <div class="col-md-4"
+                             ng-if="product.attachments.length > 0 && product.attachments[0].asset_type==1">
+                            <div class="imgPic"><img ng-src="{{product.attachments[0].attachment}}"></div>
+                        </div>
+                        <div class="col-md-4"
+                             ng-if="!product.attachments || product.attachments.length < 1 || product.attachments[0].asset_type!=1">
+                            <div class="imgPic"><img ng-src="/static/assets/images/pic-01.jpg"></div>
+                        </div>
+                        <div class="col-md-8 noPad">
+                            <h4>{{ product.description | limitTo: 25 }}{{product.description.length > 25 ? '..' :
+                                ''}}</h4>
+                            <p> {{product.description | limitTo: 50}}{{product.description.length > 50 ? '..' :''}}</p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

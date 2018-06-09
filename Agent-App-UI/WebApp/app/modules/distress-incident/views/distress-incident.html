@@ -1,0 +1,36 @@
+<div class="signin">
+    <div class="popup">
+        <div class="popUpInner">
+            <img src="/static/assets/images/logo.png">
+<!--             <link href="/static/assets/css/custom_login.css" rel="stylesheet"> -->
+            <div class="signinPan">
+                <form>
+                    <input ng-model='user.email' type="text" placeholder="Email">
+                    <div class="pRelative">
+                        <input ng-model='user.password' type="password" placeholder="Password">
+                    </div>
+                    <div class="pRelative">
+                        <input ng-model='user.confirm_password' type="password" placeholder="Confirm Password">
+                    </div>
+                    <div class="pRelative">
+                        <input ng-model='user.first_name' type="text" placeholder="Name">
+                    </div>
+                    <div class="pRelative">
+                        <input ng-model='user.number' type="text" placeholder="Conatct Number">
+                    </div>
+                    <div class="pRelative">
+                        <p>Select User Role: </p>
+                        <select ng-model="user.role">
+                            <option ng-repeat="x in typeData" value="{{x.name}}">{{x.name}}</option>
+                        </select>
+                    </div>
+                    <div ng-if="isInvalid" class="login-alert login-alert-danger fade in">
+                        <login-strong>{{messsage}}</login-strong>
+                    </div>
+                    <input ng-click='userSignUp()' type="submit" value="Sign Up">
+                </form>
+                <p><label style="cursor: pointer;" ng-click='signip()'>Sign In?</label></p>
+            </div>
+        </div>
+    </div>
+</div>

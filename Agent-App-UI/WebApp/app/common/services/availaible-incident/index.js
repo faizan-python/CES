@@ -1,0 +1,1 @@
+angular.module('availIncident.services',['availincident.service']);
